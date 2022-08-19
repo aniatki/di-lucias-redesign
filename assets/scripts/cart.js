@@ -8,14 +8,30 @@ function renderFromLocalStorage(object) {
     <li class="cart-item" data-id="${object.id}">
     <span class="cart-item-name">${object.name}</span>
     <span class="cart-item-quantity">${parseInt(object.quantity)}</span>
-    <button class="decrease-button">&minus;</button>
+    <button class="decrease-button">-</button>
     <button class="remove-button">&#10006;</button>
-    <button class="increase-button">&plus;</button>
+    <button class="increase-button">+</button>
         <span class="cart-item-price">${parseFloat(object.price).toFixed(
             2
         )}</span>
     </li>
     `
+
+    let decreaseButtons = document.querySelectorAll(".decrease-button"),
+        removeButtons = document.querySelectorAll(".remove-button"),
+        increaseButtons = document.querySelectorAll(".increase-button")
+    let buttons = [...decreaseButtons, ...removeButtons, ...increaseButtons]
+
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", (e) => {
+            if (e.target.classList.contains("remove-button")) {
+                remove(e)
+            } else {
+                modifyQuantity(e)
+            }
+        })
+    }
+
     let cartTotal =
         parseFloat(object.price).toFixed(2) * parseInt(object.quantity)
 
@@ -29,22 +45,90 @@ function getLocalStorageItems() {
     }
 }
 
-function decrease(e) {
-    console.log("DECREASED")
-    // for (let i = 0; i < localStorage.length; i++) {
-    // const obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    // }
-}
+// function decrease(e) {
+//     let object = JSON.parse(
+//         localStorage.getItem(
+//             `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
+//         )
+//     )
+
+//     let updated = {
+//         name: object.name,
+//         id: object.id,
+//         quantity: object.quantity - 1,
+//         price: object.price,
+//     }
+
+//     localStorage.setItem(
+//         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`,
+//         JSON.stringify(updated)
+//     )
+//     getLocalStorageItems()
+//     updateTotal()
+// }
 function remove(e) {
-    cartItemsElement.innerHTML = ""
+    cartItemsElement.textContent = ""
+
     localStorage.removeItem(
         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
     )
     getLocalStorageItems()
     updateTotal()
 }
-function increase(e) {
-    console.log("INCREASED")
+// function increase(e) {
+//     let object = JSON.parse(
+//         localStorage.getItem(
+//             `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
+//         )
+//     )
+
+//     let updated = {
+//         name: object.name,
+//         id: object.id,
+//         quantity: object.quantity + 1,
+//         price: object.price,
+//     }
+
+//     localStorage.setItem(
+//         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`,
+//         JSON.stringify(updated)
+//     )
+//     getLocalStorageItems()
+//     updateTotal()
+// }
+
+function determineType(e, currentQuantity) {
+    const type = e.target.innerHTML
+    if (type === "+") {
+        return currentQuantity + 1
+    } else if (type === "-") {
+        if (currentQuantity === 1) return 1
+        return currentQuantity - 1
+    } else {
+        console.warn("Something went wrong updating the quantity.")
+    }
+}
+
+function modifyQuantity(e) {
+    let object = JSON.parse(
+        localStorage.getItem(
+            `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
+        )
+    )
+
+    let updated = {
+        name: object.name,
+        id: object.id,
+        quantity: determineType(e, parseInt(object.quantity)),
+        price: object.price,
+    }
+
+    localStorage.setItem(
+        `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`,
+        JSON.stringify(updated)
+    )
+    getLocalStorageItems()
+    updateTotal()
 }
 
 function updateRender() {
@@ -66,15 +150,3 @@ function updateTotal() {
 }
 
 getLocalStorageItems()
-
-let decreaseButtons = document.getElementsByClassName("decrease-button")
-let removeButtons = document.getElementsByClassName("remove-button")
-let increaseButtons = document.getElementsByClassName("increase-button")
-
-for (let i = 0; i < localStorage.length * 3; i++) {
-    const buttons = [...decreaseButtons, removeButtons, increaseButtons]
-    for (let j = 0; j < buttons.length; i++) {
-        const button = buttons[j]
-        button.addEventListener("click", (e) => console.log(e.target))
-    }
-}

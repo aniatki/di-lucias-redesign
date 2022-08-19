@@ -51,6 +51,7 @@ ul {
 
 ul li {
     margin-inline-start: 1em;
+    position: relative;
 }
 
 li a {
@@ -286,12 +287,9 @@ main {
     display: block;
 }
 
-a[data-quantity-items] {
-    position: relative;
-}
+div[data-quantity-items] {
+    --flash-color: white;
 
-a[data-quantity-items]::after {
-    content: attr(data-quantity-items);
     position: absolute;
     top: -0.5em;
     right: -1em;
@@ -309,6 +307,25 @@ a[data-quantity-items]::after {
 
     backdrop-filter: blur(6em);
     clip-path: text;
+    opacity: 0;
+    transition: visibility 1s ease;
+    animation: flash 0.5s ease-out;
+    animation-play-state: paused;
+    box-shadow: 0 0 0 0 transparent;
+}
+
+@keyframes flash {
+    0% {
+        box-shadow: 0 0 0 0 var(--flash-color);
+    }
+
+    20% {
+        box-shadow: 0 0 20px var(--flash-color);
+    }
+
+    100% {
+        box-shadow: 0 0 20px 0 transparent;
+    }
 }
 
 .cart-main ul {
