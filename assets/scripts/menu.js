@@ -748,10 +748,15 @@ function handleClickType(e) {
 
 function addAnimation() {
     const popUp = document.querySelector(".pop-up")
+    popUp.style.setProperty(
+        "filter",
+        `hue-rotate(${parseInt(Math.random(0, 0.36) * 200)})`
+    )
+    console.log(popUp.style.filter)
     popUp.classList.add("is-animating")
-    setTimeout(() => {
+    popUp.addEventListener("animationend", () =>
         popUp.classList.remove("is-animating")
-    }, 2010)
+    )
 }
 
 function handleAction(e) {

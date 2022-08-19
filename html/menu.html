@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap"
         rel="stylesheet">
     <script src="/assets/scripts/menu.js" defer></script>
+    <script src="/assets/scripts/general.js" defer></script>
 </head>
 
 <body>
@@ -22,28 +23,10 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/html/menu.html">Menu</a></li>
-                <li><a href="/html/cart.html">Cart</a></li>
+                <li><a data-quantity-items="" href="/html/cart.html">Cart</a></li>
             </ul>
         </div>
     </nav>
-
-    <template data-template>
-        <article class="menu-card">
-            <h2 class="menu-card-header"></h2>
-            <div class="button-container">
-                <button class="menu-item">
-                    <span class="menu-item-name"></span>
-                    <span class="hover-basket">&#43;</span>
-                    <span class="menu-item-price"></span>
-                </button>
-                <p class="allergen-container">
-                    Contains:
-                    <span class="allergen-information"></span>
-                </p>
-            </div>
-        </article>
-    </template>
-
     <div class="pop-up">
         Added to Cart
     </div>

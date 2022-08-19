@@ -2,9 +2,6 @@ const LOCAL_STORAGE_KEY = "diLuciasCart-ID-"
 
 const cartItemsElement = document.querySelector("[data-cart-items-container]")
 const total = document.querySelector(".cart-total-amount")
-const decreaseButtons = document.querySelectorAll("decrease-button")
-const increaseButtons = document.querySelectorAll("increase-button")
-const removeButtons = document.querySelectorAll("remove-button")
 
 function renderFromLocalStorage(object) {
     cartItemsElement.innerHTML += `
@@ -34,14 +31,17 @@ function getLocalStorageItems() {
 
 function decrease(e) {
     console.log("DECREASED")
-    for (let i = 0; i < localStorage.length; i++) {
-        // const obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    }
+    // for (let i = 0; i < localStorage.length; i++) {
+    // const obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    // }
 }
 function remove(e) {
+    cartItemsElement.innerHTML = ""
     localStorage.removeItem(
         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
     )
+    getLocalStorageItems()
+    updateTotal()
 }
 function increase(e) {
     console.log("INCREASED")
@@ -54,6 +54,8 @@ function updateRender() {
 }
 
 function updateTotal() {
+    cartItemsElement.innerHTML = ""
+    getLocalStorageItems()
     total.innerText = 0
     for (let i = 0; i < localStorage.length; i++) {
         const obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
@@ -62,8 +64,17 @@ function updateTotal() {
         total.innerText = (parseFloat(total.innerText) + cartTotal).toFixed(2)
     }
 }
+
 getLocalStorageItems()
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log(document.querySelector("cart-item"))
-})
+let decreaseButtons = document.getElementsByClassName("decrease-button")
+let removeButtons = document.getElementsByClassName("remove-button")
+let increaseButtons = document.getElementsByClassName("increase-button")
+
+for (let i = 0; i < localStorage.length * 3; i++) {
+    const buttons = [...decreaseButtons, removeButtons, increaseButtons]
+    for (let j = 0; j < buttons.length; i++) {
+        const button = buttons[j]
+        button.addEventListener("click", (e) => console.log(e.target))
+    }
+}
