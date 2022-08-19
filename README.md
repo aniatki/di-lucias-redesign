@@ -1,2 +1,4 @@
-# di-lucias-redesing
- Di Lucia's Takeaway Redesign and improved functionality
+# Di Lucia's Redesign
+ Di Lucia's Takeaway Redesign and improved functionality.
+ 
+ 
