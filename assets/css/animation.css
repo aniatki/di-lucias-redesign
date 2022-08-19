@@ -1,0 +1,73 @@
+:root {
+    --clip-start-X: polygon(0 0, 0 0, 0 100%, 0 100%);
+    --clip-end-X: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+
+    --clip-start-Y: polygon(0 0, 100% 0, 100% 0, 0 0);
+    --clip-end-Y: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.headline {
+    animation: reveal-x .5s ease-in-out;
+}
+
+nav ul li {
+    animation: slide-right .5s ease;
+}
+
+@keyframes reveal-x {
+    0% {
+        clip-path: var(--clip-start-X);
+        opacity: 0;
+    }
+
+    100% {
+        clip-path: var(--clip-end-X);
+        opacity: 1;
+    }
+}
+
+@keyframes reveal-y {
+    0% {
+        clip-path: var(--clip-start-Y);
+        opacity: 0;
+    }
+
+    100% {
+        clip-path: var(--clip-end-Y);
+        opacity: 1;
+    }
+}
+
+@keyframes conceal-x {
+    0% {
+        clip-path: var(--clip-end-X);
+        opacity: 0;
+    }
+
+    100% {
+        clip-path: var(--clip-start-X);
+        opacity: 1;
+    }
+}
+
+@keyframes conceal-y {
+    0% {
+        clip-path: var(--clip-end-Y);
+        opacity: 0;
+    }
+
+    100% {
+        clip-path: var(--clip-start-Y);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-4em)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
