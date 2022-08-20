@@ -194,7 +194,7 @@ h1 span::after {
 }
 
 .image-blur {
-    background-image: url(/assets/images/hero-1920.jpg);
+    background-image: url(../assets/images/hero-1920.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     z-index: -1;
@@ -207,7 +207,7 @@ h1 span::after {
 }
 
 .image-main {
-    background-image: url(/assets/images/hero-1920.jpg);
+    background-image: url(../assets/images/hero-1920.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
