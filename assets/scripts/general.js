@@ -25,3 +25,9 @@ const toggle = document.querySelector("[data-hamburger-menu]")
 toggle.addEventListener("click", () => {
     toggle.classList.toggle("open")
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const allergenTexts = document.body.querySelectorAll(
+        ".allergen-information"
+    )
+})

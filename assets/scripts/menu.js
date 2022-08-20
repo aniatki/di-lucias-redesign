@@ -454,7 +454,7 @@ const products = [
             name: "Rib Steak Burger",
             price: 4.7,
             ingredients: "Lettuce, Onions, Barbecue, Mayonnaise",
-            allergen: [1, 4, 5, 7, 15],
+            allergen: [1, 4, 5, 7],
             id: 49,
             inCart: false,
             quantity: 1,
