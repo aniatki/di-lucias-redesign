@@ -19,7 +19,17 @@
 <body>
     <nav>
         <div class="navbar-wrapper">
-            <h3>Di Lucia's Clonshaugh</h3>
+            <h3><a href="/">Di Lucia's Clonshaugh</a></h3>
+            <div data-hamburger-menu class="">
+                <span></span><span></span><span></span>
+            </div>
+            <ul data-mobile-nav>
+                <li><a href="/">Home</a></li>
+                <li><a href="/html/menu.html">Menu</a></li>
+                <li><a href="cart.html">Cart</a>
+                    <div data-quantity-items=""></div>
+                </li>
+            </ul>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/html/menu.html">Menu</a></li>
@@ -29,6 +39,7 @@
             </ul>
         </div>
     </nav>
+    <main data-menu-main></main>
     <div class="pop-up">
         Added to Cart
     </div>

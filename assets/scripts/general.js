@@ -19,3 +19,9 @@ document.addEventListener("click", () => {
     })
     counter.innerText = totalQuantity()
 })
+
+const toggle = document.querySelector("[data-hamburger-menu]")
+
+toggle.addEventListener("click", () => {
+    toggle.classList.toggle("open")
+})

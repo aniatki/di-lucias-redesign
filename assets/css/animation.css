@@ -4,14 +4,16 @@
 
     --clip-start-Y: polygon(0 0, 100% 0, 100% 0, 0 0);
     --clip-end-Y: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+    --flash-color: var(--clr-neutral-400);
 }
 
 .headline {
-    animation: reveal-x .5s ease-in-out;
+    animation: reveal-x 0.5s ease-in-out;
 }
 
 nav ul li {
-    animation: slide-right .5s ease;
+    animation: slide-right 0.5s ease;
 }
 
 @keyframes reveal-x {
@@ -64,10 +66,88 @@ nav ul li {
 
 @keyframes slide-right {
     0% {
-        transform: translateX(-4em)
+        transform: translateX(-4em);
     }
 
     100% {
-        transform: translateX(0)
+        transform: translateX(0);
+    }
+}
+
+@keyframes hint {
+    0% {
+        opacity: 0.5;
+        transform: translate(-50%, -20%) scale(1.2, -0.05);
+    }
+
+    5% {
+        opacity: 1;
+        transform: translate(-50%, -40%) scale(1);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translate(-50%, -40%) scale(1);
+    }
+
+    95% {
+        opacity: 1;
+        transform: translate(-50%, -40%) scale(1.1, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scaleY(-0.05);
+    }
+}
+
+@keyframes flash {
+    0% {
+        box-shadow: 0 0 0 0 var(--flash-color);
+    }
+
+    20% {
+        box-shadow: 0 0 20px var(--flash-color);
+    }
+
+    100% {
+        box-shadow: 0 0 20px 0 transparent;
+    }
+}
+
+@keyframes pop-up {
+    0% {
+        transform: scale(0) translateX(-100%);
+        background-position: right;
+        opacity: 0;
+    }
+    10% {
+        transform: scale(1) translateX(-40%);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    90% {
+        transform: scale(1);
+        opacity: 1;
+        background-position: left;
+    }
+    100% {
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: top;
+    }
+}
+
+@keyframes checkout {
+    from {
+        background-size: 100% 100%;
+        background-position: top;
+    }
+
+    to {
+        background-size: 100% 400%;
+        background-position: bottom;
     }
 }

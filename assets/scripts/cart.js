@@ -1,3 +1,5 @@
+let hintMessages = []
+
 const LOCAL_STORAGE_KEY = "diLuciasCart-ID-"
 
 const cartItemsElement = document.querySelector("[data-cart-items-container]")
@@ -9,7 +11,7 @@ function renderFromLocalStorage(object) {
     <span class="cart-item-name">${object.name}</span>
     <span class="cart-item-quantity">${parseInt(object.quantity)}</span>
     <button class="decrease-button">-</button>
-    <button class="remove-button">&#10006;</button>
+    <button class="remove-button">&times;</button>
     <button class="increase-button">+</button>
         <span class="cart-item-price">${parseFloat(object.price).toFixed(
             2
@@ -45,27 +47,6 @@ function getLocalStorageItems() {
     }
 }
 
-// function decrease(e) {
-//     let object = JSON.parse(
-//         localStorage.getItem(
-//             `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
-//         )
-//     )
-
-//     let updated = {
-//         name: object.name,
-//         id: object.id,
-//         quantity: object.quantity - 1,
-//         price: object.price,
-//     }
-
-//     localStorage.setItem(
-//         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`,
-//         JSON.stringify(updated)
-//     )
-//     getLocalStorageItems()
-//     updateTotal()
-// }
 function remove(e) {
     cartItemsElement.textContent = ""
 
@@ -75,34 +56,30 @@ function remove(e) {
     getLocalStorageItems()
     updateTotal()
 }
-// function increase(e) {
-//     let object = JSON.parse(
-//         localStorage.getItem(
-//             `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`
-//         )
-//     )
 
-//     let updated = {
-//         name: object.name,
-//         id: object.id,
-//         quantity: object.quantity + 1,
-//         price: object.price,
-//     }
-
-//     localStorage.setItem(
-//         `${LOCAL_STORAGE_KEY}${e.target.parentElement.dataset.id}`,
-//         JSON.stringify(updated)
-//     )
-//     getLocalStorageItems()
-//     updateTotal()
-// }
+function showHint(message) {
+    if (document.querySelector(".hint-message")) return
+    const messageElement = document.createElement("div")
+    messageElement.classList.add("hint-message")
+    messageElement.innerText = message
+    document.querySelector("main").append(messageElement)
+    setTimeout(() => {
+        messageElement.innerText = ""
+        messageElement.remove()
+    }, 5000)
+}
 
 function determineType(e, currentQuantity) {
     const type = e.target.innerHTML
     if (type === "+") {
         return currentQuantity + 1
     } else if (type === "-") {
-        if (currentQuantity === 1) return 1
+        if (currentQuantity === 1) {
+            showHint(
+                "Whoops, we can't give you less than one item. Hint: press the 'x' button to remove it from your cart."
+            )
+            return 1
+        }
         return currentQuantity - 1
     } else {
         console.warn("Something went wrong updating the quantity.")
@@ -150,3 +127,5 @@ function updateTotal() {
 }
 
 getLocalStorageItems()
+
+if (hintMessages.length > 0) isThereHints()
