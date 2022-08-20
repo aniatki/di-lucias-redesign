@@ -8,11 +8,11 @@ const total = document.querySelector(".cart-total-amount")
 function renderFromLocalStorage(object) {
     cartItemsElement.innerHTML += `
     <li class="cart-item" data-id="${object.id}">
-    <span class="cart-item-name">${object.name}</span>
-    <span class="cart-item-quantity">${parseInt(object.quantity)}</span>
-    <button class="decrease-button">-</button>
-    <button class="remove-button">&times;</button>
-    <button class="increase-button">+</button>
+        <span class="cart-item-name">${object.name}</span>
+        <span class="cart-item-quantity">${parseInt(object.quantity)}</span>
+        <button class="decrease-button">-</button>
+        <button class="remove-button">&times;</button>
+        <button class="increase-button">+</button>
         <span class="cart-item-price">${parseFloat(object.price).toFixed(
             2
         )}</span>

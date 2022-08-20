@@ -21,8 +21,18 @@
     <nav>
         <div class="navbar-wrapper">
             <h3><a href="/">Di Lucia's Clonshaugh</a></h3>
-            <ul>
-                <li><a href="/">Home</a></li>
+            <div data-hamburger-menu class="">
+                <span></span><span></span><span></span>
+            </div>
+            <ul data-mobile-nav class="mobile-ul">
+                <li><a href="../">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="#">Cart</a>
+                    <div data-quantity-items=""></div>
+                </li>
+            </ul>
+            <ul class="nav-large-ul">
+                <li><a href="../">Home</a></li>
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="#">Cart</a>
                     <div data-quantity-items=""></div>
@@ -34,8 +44,8 @@
     <main class="cart-main">
         <ul>
             <h1>Your cart items:</h1>
-            <div data-cart-items-container>
 
+            <div data-cart-items-container class="cart-container">
             </div>
 
             <div class="cart-total">
