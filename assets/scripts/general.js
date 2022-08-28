@@ -1,33 +1,39 @@
-const counter = document.querySelector("[data-quantity-items]")
-function totalQuantity() {
+// Hamburger menu toggle
+
+document
+    .querySelector("[data-hamburger-menu]")
+    .setAttribute("onclick", "this.classList.toggle('open')")
+
+// Cart item counter
+
+const counter = document.querySelectorAll("[data-quantity-items]")
+
+counter.forEach((elem) => {
+    document.addEventListener("DOMContentLoaded", () => {
+        elem.innerText = totalQuantity(elem)
+    })
+    setInterval(() => {
+        elem.innerText = totalQuantity(elem)
+    }, 1000)
+})
+
+function totalQuantity(elem) {
     let total = 0
     for (let i = 0; i < localStorage.length; i++) {
         const current = localStorage.key(i)
         const quantity = JSON.parse(localStorage.getItem(current)).quantity
         total += quantity
     }
-    total === 0 ? (counter.style.opacity = 0) : (counter.style.opacity = 1)
+    total === 0 ? (elem.style.opacity = 0) : (elem.style.opacity = 1)
     return total
 }
-document.addEventListener("DOMContentLoaded", () => {
-    counter.innerText = totalQuantity()
-})
-document.addEventListener("click", () => {
-    counter.style.animationPlayState = "running"
-    counter.addEventListener("animationeend", () => {
-        counter.style.animationPlayState = "paused"
+
+function update(elem) {
+    document.addEventListener("click", () => {
+        elem.style.animationPlayState = "running"
+        elem.addEventListener("animationeend", () => {
+            elem.style.animationPlayState = "paused"
+        })
+        elem.innerText = totalQuantity(elem)
     })
-    counter.innerText = totalQuantity()
-})
-
-const toggle = document.querySelector("[data-hamburger-menu]")
-
-toggle.addEventListener("click", () => {
-    toggle.classList.toggle("open")
-})
-
-document.addEventListener("DOMContentLoaded", () => {
-    const allergenTexts = document.body.querySelectorAll(
-        ".allergen-information"
-    )
-})
+}

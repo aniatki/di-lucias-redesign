@@ -4,6 +4,25 @@ const LOCAL_STORAGE_KEY = "diLuciasCart-ID-"
 
 const cartItemsElement = document.querySelector("[data-cart-items-container]")
 const total = document.querySelector(".cart-total-amount")
+const checkoutBtn = document.querySelector(".checkout-btn")
+
+checkoutBtn.addEventListener("click", () => {
+    if (localStorage.length === 0) return
+    setTimeout(() => {
+        localStorage.clear()
+        updateRender()
+        const newElem = document.createElement("h2")
+        newElem.innerText = "Thank you for your purchase."
+        cartItemsElement.append(newElem)
+        setTimeout(() => {
+            newElem.remove()
+        }, 10000)
+    }, 1000)
+})
+
+getLocalStorageItems()
+
+if (hintMessages.length > 0) isThereHints()
 
 function renderFromLocalStorage(object) {
     cartItemsElement.innerHTML += `
@@ -125,7 +144,3 @@ function updateTotal() {
         total.innerText = (parseFloat(total.innerText) + cartTotal).toFixed(2)
     }
 }
-
-getLocalStorageItems()
-
-if (hintMessages.length > 0) isThereHints()

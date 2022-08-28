@@ -704,7 +704,7 @@ function headerElement(prodHeader) {
 `
 }
 
-function innerElement(name, price, allergen, id) {
+function innerElement(name, price, allergen, id, ingredients) {
     return `
     <div class="button-container">
         <button data-id="${id}" class="menu-item">
@@ -721,6 +721,7 @@ function innerElement(name, price, allergen, id) {
             Contains:
             <span class="allergen-information">${allergen}</span>
         </p>
+        <p>${ingredients == undefined ? "" : ingredients}</p>
     </div>
     `
 }
@@ -728,17 +729,17 @@ function innerElement(name, price, allergen, id) {
 function renderAllergen(allergen) {
     let list = ""
     if (allergen === undefined || typeof allergen === "undefined") {
-        list = "No allergens found for this item."
+        return (list = "No allergens found for this item.")
     } else if (typeof allergen === "object") {
         try {
             allergen.forEach((index) => {
-                list += `${allergens[index - 1]}, `
+                return (list += `${allergens[index - 1]}, `)
             })
         } catch (TypeError) {
             console.log("Something went wrong rendering the allergens.")
         }
     }
-    return list
+    return list.slice(0, -2)
 }
 
 function handleClickType(e) {
@@ -747,7 +748,7 @@ function handleClickType(e) {
     } else if (e.target.nodeName === "SPAN") {
         return e.target.parentElement
     } else {
-        return null
+        return
     }
 }
 
@@ -757,7 +758,6 @@ function addAnimation() {
         "filter",
         `hue-rotate(${parseInt(Math.random(0, 0.36) * 200)})`
     )
-    console.log(popUp.style.filter)
     popUp.classList.add("is-animating")
     popUp.addEventListener("animationend", () =>
         popUp.classList.remove("is-animating")
@@ -812,12 +812,14 @@ document.querySelectorAll(".menu-card").forEach((elem) => {
         for (let j = 0; j < products[i].length; j++) {
             if (typeof products[i][j] === "string") continue
             if (elem.querySelector("h2").innerText === products[i][0]) {
-                const { name, price, id, allergen } = products[i][j]
+                const { name, price, id, allergen, ingredients } =
+                    products[i][j]
                 elem.innerHTML += innerElement(
                     name,
                     price,
                     renderAllergen(allergen),
-                    id
+                    id,
+                    ingredients
                 )
             }
         }
